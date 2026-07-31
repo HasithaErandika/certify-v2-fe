@@ -1,1 +1,44 @@
 @import "tailwindcss";
+
+/* ─── Mozilla Protocol design tokens (Tailwind v4 @theme) ─── */
+@theme {
+  /* Primary — Mozilla Orange #ff7139 */
+  --color-moz-orange:       #ff7139;
+  --color-moz-orange-light: #fff4ee;
+  --color-moz-orange-mid:   #e3572a;
+  --color-moz-orange-dark:  #7a2500;
+
+  /* Dark surfaces — Mozilla Ink */
+  --color-moz-ink:          #20123a;
+  --color-moz-ink-light:    #2e1a54;
+  --color-moz-ink-mid:      #180d2c;
+
+  /* Accent — Mozilla Violet */
+  --color-moz-violet:       #592acb;
+  --color-moz-violet-light: #e7dfff;
+  --color-moz-violet-mid:   #7542e5;
+
+  /* Neutrals */
+  --color-moz-white:        #fafafa;
+  --color-moz-gray-light:   #e8e8e8;
+  --color-moz-gray:         #b3b3b3;
+  --color-moz-gray-mid:     #6d6d6d;
+  --color-moz-gray-dark:    #414141;
+  --color-moz-black:        #161616;
+
+  /* Typography */
+  --font-sans: "Inter", system-ui, sans-serif;
+}
+
+/* ─── Global base ─── */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--color-moz-white);
+  color: var(--color-moz-black);
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+}

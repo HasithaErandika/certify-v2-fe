@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import PDFViewer from "../components/PDFViewer";
 
 function PreviewPage() {
@@ -54,9 +54,7 @@ function PreviewPage() {
   }, [certificateId]);
 
   const handleDownload = () => {
-    if (!certificateBlob) {
-      return;
-    }
+    if (!certificateBlob) return;
 
     const fileUrl = URL.createObjectURL(certificateBlob);
     const link = document.createElement("a");
@@ -67,38 +65,203 @@ function PreviewPage() {
   };
 
   return (
-    <main className="h-screen bg-orange-50 p-2 sm:p-4">
-      <div className="mx-auto flex h-full w-full max-w-6xl flex-col items-center justify-center rounded-2xl border border-orange-200 bg-white p-4 shadow-sm sm:p-6">
-        <h1 className="text-center text-lg font-semibold text-slate-900 sm:text-2xl">
-          Certificate Preview
-        </h1>
-        <p className="mt-1 text-center text-xs text-slate-600 sm:text-sm">
-          ID: {certificateId}
-        </p>
+    <div
+      style={{
+        minHeight: "calc(100vh - 140px)",
+        padding: "1.5rem",
+        display: "flex",
+        flexDirection: "column",
+        gap: "1rem",
+        backgroundColor: "#f7f7fa",
+      }}
+    >
+      {/* Top bar */}
+      <div
+        style={{
+          maxWidth: "72rem",
+          margin: "0 auto",
+          width: "100%",
+          display: "flex",
+          flexWrap: "wrap",
+          alignItems: "center",
+          justifyContent: "space-between",
+          gap: "0.75rem",
+        }}
+      >
+        <div>
+          <h1
+            style={{
+              margin: 0,
+              fontSize: "clamp(1.1rem, 3vw, 1.5rem)",
+              fontWeight: 700,
+              color: "var(--color-moz-black)",
+              letterSpacing: "-0.02em",
+            }}
+          >
+            Certificate Preview
+          </h1>
+          <p
+            style={{
+              margin: "0.25rem 0 0",
+              fontSize: "0.8rem",
+              color: "var(--color-moz-gray-mid)",
+              fontFamily: "monospace",
+            }}
+          >
+            ID: {certificateId}
+          </p>
+        </div>
 
-        {loading ? (
-          <p className="mt-4 text-sm text-slate-600">Loading certificate...</p>
-        ) : null}
+        <div style={{ display: "flex", gap: "0.625rem", flexWrap: "wrap" }}>
+          {/* Back link */}
+          <Link
+            id="back-to-home-link"
+            to="/"
+            style={{
+              padding: "0.5rem 1rem",
+              borderRadius: "0.5rem",
+              border: "1.5px solid var(--color-moz-gray-light)",
+              background: "#ffffff",
+              color: "var(--color-moz-gray-mid)",
+              fontSize: "0.85rem",
+              fontWeight: 600,
+              textDecoration: "none",
+              transition: "all 0.2s ease",
+              fontFamily: "inherit",
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.borderColor = "var(--color-moz-gray)";
+              e.currentTarget.style.color = "var(--color-moz-black)";
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.borderColor = "var(--color-moz-gray-light)";
+              e.currentTarget.style.color = "var(--color-moz-gray-mid)";
+            }}
+          >
+            ← Back
+          </Link>
 
-        {error ? <p className="mt-4 text-sm text-red-600">{error}</p> : null}
-
-        {certificateImg && !loading && !error && (
-          <div className="mt-4 w-full max-w-4xl flex-1 min-h-0 overflow-hidden rounded-xl border border-orange-200 bg-orange-50 p-2 sm:p-3">
-            <PDFViewer url={certificateImg} />
-          </div>
-        )}
-
-        <div className="mt-4 flex w-full max-w-4xl flex-col gap-2 sm:flex-row sm:justify-end">
+          {/* Download button */}
           <button
-            className="w-full rounded-lg bg-blue-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-blue-700 disabled:cursor-not-allowed disabled:bg-blue-300 sm:w-auto"
+            id="download-certificate-button"
             onClick={handleDownload}
             disabled={!certificateBlob}
+            style={{
+              padding: "0.5rem 1.25rem",
+              borderRadius: "0.5rem",
+              border: "none",
+              background: certificateBlob
+                ? "linear-gradient(135deg, var(--color-moz-orange) 0%, var(--color-moz-orange-mid) 100%)"
+                : "var(--color-moz-gray-light)",
+              color: certificateBlob ? "#fff" : "var(--color-moz-gray)",
+              fontSize: "0.85rem",
+              fontWeight: 700,
+              cursor: certificateBlob ? "pointer" : "not-allowed",
+              transition: "all 0.2s ease",
+              fontFamily: "inherit",
+              boxShadow: certificateBlob
+                ? "0 2px 10px rgba(255,113,57,0.3)"
+                : "none",
+            }}
+            onMouseEnter={(e) => {
+              if (certificateBlob) {
+                e.currentTarget.style.transform = "translateY(-1px)";
+                e.currentTarget.style.boxShadow =
+                  "0 4px 18px rgba(255,113,57,0.45)";
+              }
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.transform = "translateY(0)";
+              e.currentTarget.style.boxShadow = certificateBlob
+                ? "0 2px 10px rgba(255,113,57,0.3)"
+                : "none";
+            }}
           >
-            Download
+            ↓ Download PDF
           </button>
         </div>
       </div>
-    </main>
+
+      {/* Status messages */}
+      {loading && (
+        <div
+          style={{
+            maxWidth: "72rem",
+            margin: "0 auto",
+            width: "100%",
+          }}
+        >
+          <p
+            style={{
+              textAlign: "center",
+              color: "var(--color-moz-gray-mid)",
+              fontSize: "0.9rem",
+              padding: "2rem",
+            }}
+          >
+            <span
+              style={{
+                display: "inline-block",
+                animation: "spin 1s linear infinite",
+              }}
+            >
+              ⟳
+            </span>{" "}
+            Loading certificate…
+          </p>
+        </div>
+      )}
+
+      {error && (
+        <div
+          style={{
+            maxWidth: "72rem",
+            margin: "0 auto",
+            width: "100%",
+          }}
+        >
+          <p
+            style={{
+              textAlign: "center",
+              color: "#c0392b",
+              fontSize: "0.9rem",
+              padding: "1.5rem",
+              background: "#fdf0ef",
+              borderRadius: "0.75rem",
+              border: "1px solid #f5c6c2",
+            }}
+          >
+            ⚠ {error}
+          </p>
+        </div>
+      )}
+
+      {/* PDF viewer */}
+      {certificateImg && !loading && !error && (
+        <div
+          style={{
+            flex: 1,
+            maxWidth: "72rem",
+            margin: "0 auto",
+            width: "100%",
+            minHeight: 0,
+            borderRadius: "1rem",
+            overflow: "hidden",
+            border: "1px solid var(--color-moz-gray-light)",
+            background: "#ffffff",
+            boxShadow:
+              "0 4px 6px rgba(0,0,0,0.04), 0 12px 40px rgba(89,42,203,0.06)",
+            padding: "0.5rem",
+          }}
+        >
+          <PDFViewer url={certificateImg} />
+        </div>
+      )}
+
+      <style>{`
+        @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+      `}</style>
+    </div>
   );
 }
 
