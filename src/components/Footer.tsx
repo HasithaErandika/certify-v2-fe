@@ -2,23 +2,54 @@ import { FaGithub, FaInstagram, FaLinkedin } from "react-icons/fa";
 
 export default function Footer() {
   return (
-    <footer className="bg-transparent py-6 px-4 sm:px-8 mt-auto relative z-50">
-      <div className="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-4">
-        <p className="text-xs font-bold text-gray-400">
-          &copy; {new Date().getFullYear()} SLIIT Mozilla Club &middot; Certify Platform
+    <footer
+      id="site-footer"
+      className="bg-white border-t border-moz-gray-light py-4 px-4 sm:px-6 mt-auto z-50"
+    >
+      <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left">
+        <p className="text-xs text-moz-gray-mid font-medium">
+          © {new Date().getFullYear()} SLIIT Mozilla Club · Certify Platform
         </p>
-        <div className="flex gap-4 text-gray-400">
-          <a href="#" className="hover:text-mozilla-ink transition">
-            <FaGithub className="w-5 h-5" />
-          </a>
-          <a href="#" className="hover:text-mozilla-orange transition">
-            <FaInstagram className="w-5 h-5" />
-          </a>
-          <a href="#" className="hover:text-blue-600 transition">
-            <FaLinkedin className="w-5 h-5" />
-          </a>
-        </div>
+
+        <nav aria-label="SLIIT Mozilla Club social links">
+          <ul className="flex items-center gap-4 p-0 m-0 list-none">
+            {[
+              {
+                id: "footer-github",
+                href: "https://github.com/Mozilla-Campus-Club-of-SLIIT",
+                label: "GitHub",
+                Icon: FaGithub,
+              },
+              {
+                id: "footer-instagram",
+                href: "https://www.instagram.com/sliitmozilla",
+                label: "Instagram",
+                Icon: FaInstagram,
+              },
+              {
+                id: "footer-linkedin",
+                href: "https://www.linkedin.com/company/sliitmozilla",
+                label: "LinkedIn",
+                Icon: FaLinkedin,
+              },
+            ].map(({ id, href, label, Icon }) => (
+              <li key={id}>
+                <a
+                  id={id}
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`SLIIT Mozilla Club on ${label}`}
+                  className="text-moz-gray-mid hover:text-moz-orange transition-colors flex items-center"
+                >
+                  <Icon size={18} />
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
       </div>
     </footer>
   );
 }
+

@@ -1,28 +1,42 @@
 import { Link } from "react-router-dom";
 import { ExternalLink } from "lucide-react";
+
 export default function Header() {
   return (
-    <header className="bg-transparent p-4 sm:px-8 relative z-50">
-      <div className="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-4">
-        <div className="flex items-center gap-4">
-          <Link to="/" className="flex items-center hover:opacity-80 transition group">
-            <img src="/logo.png" alt="SLIIT Mozilla Campus Club" className="h-10 object-contain" />
-          </Link>
-          <span className="hidden sm:block w-px h-10 bg-gray-200 mx-2"></span>
-          <span className="hidden sm:block text-xs font-bold text-mozilla-orange tracking-widest uppercase">
+    <header
+      id="site-header"
+      className="bg-white border-b border-moz-gray-light shadow-xs z-50 sticky top-0"
+    >
+      <div className="max-w-6xl mx-auto flex items-center justify-between px-3 py-2.5 sm:px-6 sm:py-4">
+        {/* Brand / Logo */}
+        <Link
+          to="/"
+          className="flex items-center gap-2 sm:gap-3 shrink-0"
+          aria-label="SLIIT Mozilla Club home"
+        >
+          <img
+            src="https://www.sliitmozilla.org/assets/Mozilla-logo.png"
+            alt="Mozilla logo"
+            className="h-6 sm:h-8 w-auto object-contain"
+          />
+          <span className="hidden sm:inline-block text-[0.7rem] font-semibold text-moz-orange-mid uppercase tracking-wider">
             Certificate Portal
           </span>
-        </div>
+        </Link>
+
+        {/* External Link - Hidden on small screens (<640px), visible on sm+ */}
         <a
           href="https://sliitmozilla.org"
           target="_blank"
           rel="noopener noreferrer"
-          className="flex items-center gap-1.5 px-4 py-2 rounded-full border border-gray-200 text-xs font-bold text-gray-500 hover:text-mozilla-ink hover:border-gray-300 transition"
+          id="header-club-link"
+          className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 text-xs sm:text-sm font-semibold text-moz-gray-mid border border-moz-gray-light rounded-full transition hover:text-moz-orange hover:border-moz-orange shrink-0"
         >
-          sliitmozilla.org
-          <ExternalLink className="w-3 h-3" />
+          <span>sliitmozilla.org</span>
+          <ExternalLink className="w-3.5 h-3.5" />
         </a>
       </div>
     </header>
   );
 }
+
