@@ -3,7 +3,7 @@ import AppLayout from "./components/AppLayout";
 import HomePage from "./pages/HomePage";
 import PreviewPage from "./pages/PreviewPage";
 import IssueCertificatePage from "./pages/admin/IssueCertificatePage";
-import TemplateUploadPage from "./pages/TemplateUploadPage";
+import TemplateUploadPage from "./pages/admin/TemplateUploadPage";
 
 function App() {
   return (

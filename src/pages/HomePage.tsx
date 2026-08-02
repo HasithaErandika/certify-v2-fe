@@ -101,7 +101,7 @@ function HomePage() {
           <input
             id="certificate-id-input"
             type="text"
-            placeholder="e.g. CERT-2024-XXXXXXXX"
+            placeholder="e.g. A3F8C20B91D4"
             value={certificateId}
             onChange={(e) => setCertificateId(e.target.value)}
             onKeyDown={handleKeyDown}
@@ -178,7 +178,7 @@ function HomePage() {
           style={{
             marginTop: "1rem",
             fontSize: "0.7rem",
-            color: "var(--color-moz-gray)",
+            color: "var(--color-moz-gray-mid)",
           }}
         >
           Find your certificate ID in the email you received from us.
