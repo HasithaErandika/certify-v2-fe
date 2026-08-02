@@ -178,7 +178,7 @@ function HomePage() {
           style={{
             marginTop: "1rem",
             fontSize: "0.7rem",
-            color: "var(--color-moz-gray)",
+            color: "var(--color-moz-gray-mid)",
           }}
         >
           Find your certificate ID in the email you received from us.
