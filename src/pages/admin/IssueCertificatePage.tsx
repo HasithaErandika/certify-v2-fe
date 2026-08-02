@@ -52,7 +52,7 @@ function Field({
   );
 }
 
-{/* Page */}
+{/* Page */ }
 
 export default function IssueCertificatePage() {
   const [form, setForm] = useState<FormData>(EMPTY_FORM);
@@ -146,21 +146,18 @@ export default function IssueCertificatePage() {
     }
   };
 
-  /* ── Success screen ── */
+  /*  Success screen  */
   if (issuedId) {
     return (
       <div
-        className="flex items-center justify-center bg-[#f7f7fa] px-6 py-8"
-        style={{ minHeight: "calc(100vh - 140px)" }}
+        className="flex items-center justify-center bg-[#f7f7fa] px-6 py-8 min-h-[calc(100vh-140px)]"
       >
         <div
-          className="bg-white border border-moz-gray-light rounded-[1.25rem] p-10 max-w-[30rem] w-full text-center"
-          style={{ boxShadow: "0 4px 6px rgba(0,0,0,0.04), 0 12px 40px rgba(89,42,203,0.06)" }}
+          className="bg-white border border-moz-gray-light rounded-[1.25rem] p-10 max-w-[30rem] w-full text-center shadow-[0_4px_6px_rgba(0,0,0,0.04),0_12px_40px_rgba(89,42,203,0.06)]"
         >
           {/* Checkmark */}
           <div
-            className="w-14 h-14 rounded-full flex items-center justify-center mx-auto mb-5 text-2xl"
-            style={{ background: "rgba(255,113,57,0.1)" }}
+            className="w-14 h-14 rounded-full flex items-center justify-center mx-auto mb-5 text-2xl bg-[rgba(255,113,57,0.1)]"
           >
             ✓
           </div>
@@ -187,11 +184,7 @@ export default function IssueCertificatePage() {
             <Link
               id="view-certificate-link"
               to={`/certificates/${encodeURIComponent(issuedId)}`}
-              className="block py-3 rounded-xl text-white font-bold no-underline text-[0.9rem]"
-              style={{
-                background: "linear-gradient(135deg, var(--color-moz-orange) 0%, var(--color-moz-orange-mid) 100%)",
-                boxShadow: "0 4px 14px rgba(255,113,57,0.3)",
-              }}
+              className="block py-3 rounded-xl text-white font-bold no-underline text-[0.9rem] bg-gradient-to-br from-[var(--color-moz-orange)] to-[var(--color-moz-orange-mid)] shadow-[0_4px_14px_rgba(255,113,57,0.3)]"
             >
               View Certificate →
             </Link>
@@ -212,15 +205,13 @@ export default function IssueCertificatePage() {
 
   return (
     <div
-      className="scrollbar-hidden overflow-y-auto bg-[#f7f7fa] px-6 py-8"
-      style={{ height: "calc(100vh - 140px)" }}
+      className="scrollbar-hidden overflow-y-auto bg-[#f7f7fa] px-6 py-8 h-[calc(100vh-140px)]"
     >
       <div className="max-w-3xl mx-auto">
         {/* Page header */}
         <div className="mb-7">
           <h1
-            className="m-0 font-extrabold text-moz-black tracking-[-0.02em]"
-            style={{ fontSize: "clamp(1.3rem, 3vw, 1.75rem)" }}
+            className="m-0 font-extrabold text-moz-black tracking-[-0.02em] text-[clamp(1.3rem,3vw,1.75rem)]"
           >
             Issue Certificate
           </h1>
@@ -407,20 +398,10 @@ export default function IssueCertificatePage() {
               id="submit-certificate-button"
               type="submit"
               disabled={isDisabled}
-              className={`py-3 px-8 rounded-xl border-none text-[0.95rem] font-bold font-sans transition-all duration-200 ${
-                isDisabled
+              className={`py-3 px-8 rounded-xl border-none text-[0.95rem] font-bold font-sans transition-all duration-200 ${isDisabled
                   ? "bg-moz-gray-light text-moz-gray cursor-not-allowed"
-                  : "text-white cursor-pointer"
-              }`}
-              style={
-                !isDisabled
-                  ? {
-                      background:
-                        "linear-gradient(135deg, var(--color-moz-orange) 0%, var(--color-moz-orange-mid) 100%)",
-                      boxShadow: "0 4px 14px rgba(255,113,57,0.35)",
-                    }
-                  : undefined
-              }
+                  : "text-white cursor-pointer bg-gradient-to-br from-[var(--color-moz-orange)] to-[var(--color-moz-orange-mid)] shadow-[0_4px_14px_rgba(255,113,57,0.35)]"
+                }`}
             >
               {submitting ? "Issuing…" : "Issue Certificate →"}
             </button>
