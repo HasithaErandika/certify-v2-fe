@@ -30,6 +30,15 @@
   --font-sans: "Inter", system-ui, sans-serif;
 }
 
+/* ─── Utilities ─── */
+.scrollbar-hidden {
+  scrollbar-width: none;        /* Firefox */
+  -ms-overflow-style: none;     /* IE / Edge legacy */
+}
+.scrollbar-hidden::-webkit-scrollbar {
+  display: none;                /* Chrome, Safari, modern Edge */
+}
+
 /* ─── Global base ─── */
 *, *::before, *::after {
   box-sizing: border-box;
