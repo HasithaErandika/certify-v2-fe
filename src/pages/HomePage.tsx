@@ -101,7 +101,7 @@ function HomePage() {
           <input
             id="certificate-id-input"
             type="text"
-            placeholder="e.g. CERT-2024-XXXXXXXX"
+            placeholder="e.g. A3F8C20B91D4"
             value={certificateId}
             onChange={(e) => setCertificateId(e.target.value)}
             onKeyDown={handleKeyDown}
