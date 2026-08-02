@@ -14,6 +14,7 @@ export function LoadingScreen({ duration = 2500, isLoading, onFinished }: Loadin
 
   useEffect(() => {
     if (isLoading !== undefined) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setVisible(isLoading);
       return;
     }
@@ -30,37 +31,14 @@ export function LoadingScreen({ duration = 2500, isLoading, onFinished }: Loadin
   if (!visible) return null;
 
   return (
-    <div
-      style={{
-        position: "fixed",
-        inset: 0,
-        backgroundColor: "#000000",
-        zIndex: 9999999,
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "center",
-        color: "#ffffff",
-        fontFamily: "Inter, system-ui, sans-serif",
-      }}
-    >
-      <h1
-        style={{
-          fontSize: "1.25rem",
-          fontWeight: 500,
-          letterSpacing: "0.05em",
-          marginBottom: "0.5rem",
-        }}
-      >
+    <div className="fixed inset-0 bg-black z-[9999999] flex flex-col items-center justify-center text-white font-sans">
+      <h1 className="text-xl font-medium tracking-[0.05em] mb-2">
         Loading ...
       </h1>
       <img
         src="/running-fox.gif"
         alt="Running Fox Loading"
-        style={{
-          width: "120px",
-          height: "auto",
-        }}
+        className="w-[120px] h-auto"
       />
     </div>
   );

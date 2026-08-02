@@ -85,132 +85,50 @@ function TemplateUploadPage() {
   };
 
   return (
-    <div
-      style={{
-        minHeight: "calc(100vh - 140px)",
-        padding: "1.5rem",
-        display: "flex",
-        flexDirection: "column",
-        gap: "1rem",
-        backgroundColor: "#f7f7fa",
-        overflowY: "auto",
-      }}
-    >
-      <div
-        style={{
-          maxWidth: "48rem",
-          margin: "0 auto",
-          width: "100%",
-          display: "flex",
-          flexWrap: "wrap",
-          alignItems: "center",
-          justifyContent: "space-between",
-          gap: "0.75rem",
-        }}
-      >
+    <div className="admin-page">
+      {/* Header */}
+      <div className="max-w-3xl mx-auto w-full flex flex-wrap items-center justify-between gap-3">
         <div>
           <h1
-            style={{
-              margin: 0,
-              fontSize: "clamp(1.1rem, 3vw, 1.5rem)",
-              fontWeight: 700,
-              color: "var(--color-moz-black)",
-              letterSpacing: "-0.02em",
-            }}
+            className="m-0 font-bold text-moz-black tracking-[-0.02em]"
+            style={{ fontSize: "clamp(1.1rem, 3vw, 1.5rem)" }}
           >
             New Certificate Template
           </h1>
         </div>
-
-        <Link
-          id="back-to-home-link"
-          to="/"
-          style={{
-            padding: "0.5rem 1rem",
-            borderRadius: "0.5rem",
-            border: "1.5px solid var(--color-moz-gray-light)",
-            background: "#ffffff",
-            color: "var(--color-moz-gray-mid)",
-            fontSize: "0.85rem",
-            fontWeight: 600,
-            textDecoration: "none",
-            transition: "all 0.2s ease",
-            fontFamily: "inherit",
-          }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.borderColor = "var(--color-moz-gray)";
-            e.currentTarget.style.color = "var(--color-moz-black)";
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.borderColor = "var(--color-moz-gray-light)";
-            e.currentTarget.style.color = "var(--color-moz-gray-mid)";
-          }}
-        >
+        <Link id="back-to-home-link" to="/" className="btn-ghost">
           ← Back
         </Link>
       </div>
 
+      {/* Success banner */}
       {success && (
-        <div style={{ maxWidth: "48rem", margin: "0 auto", width: "100%" }}>
-          <p
-            style={{
-              display: "flex",
-              alignItems: "center",
-              gap: "0.5rem",
-              color: "#1e7e42",
-              fontSize: "0.85rem",
-              padding: "0.9rem 1.25rem",
-              background: "#eefaf1",
-              borderRadius: "0.75rem",
-              border: "1px solid #bfe8cc",
-              margin: 0,
-            }}
-          >
+        <div className="max-w-3xl mx-auto w-full">
+          <p className="form-banner form-banner-success">
             <CheckCircle2 size={18} /> Template uploaded successfully.
           </p>
         </div>
       )}
 
+      {/* Error banner */}
       {error && (
-        <div style={{ maxWidth: "48rem", margin: "0 auto", width: "100%" }}>
-          <p
-            style={{
-              display: "flex",
-              alignItems: "center",
-              gap: "0.5rem",
-              color: "#c0392b",
-              fontSize: "0.85rem",
-              padding: "0.9rem 1.25rem",
-              background: "#fdf0ef",
-              borderRadius: "0.75rem",
-              border: "1px solid #f5c6c2",
-              margin: 0,
-            }}
-          >
+        <div className="max-w-3xl mx-auto w-full">
+          <p className="form-banner form-banner-error">
             <AlertCircle size={18} /> {error}
           </p>
         </div>
       )}
 
+      {/* Form card */}
       <form
         onSubmit={handleSubmit}
-        style={{
-          maxWidth: "48rem",
-          margin: "0 auto",
-          width: "100%",
-          background: "#ffffff",
-          border: "1px solid var(--color-moz-gray-light)",
-          borderRadius: "1rem",
-          padding: "1.75rem",
-          display: "flex",
-          flexDirection: "column",
-          gap: "1.5rem",
-        }}
+        className="max-w-3xl mx-auto w-full bg-white border border-moz-gray-light rounded-2xl p-7 flex flex-col gap-6"
       >
+        {/* File upload */}
         <div>
           <label htmlFor="template-file-input" className="form-label">
             Template File{" "}
-            <span style={{ color: "var(--color-moz-orange)" }}>*</span>
+            <span className="text-moz-orange">*</span>
           </label>
           <label htmlFor="template-file-input" className="dropzone">
             {file ? (
@@ -218,27 +136,11 @@ function TemplateUploadPage() {
             ) : (
               <Upload size={22} color="var(--color-moz-gray-mid)" />
             )}
-            <div style={{ minWidth: 0 }}>
-              <p
-                style={{
-                  margin: 0,
-                  fontSize: "0.85rem",
-                  fontWeight: 600,
-                  color: "var(--color-moz-black)",
-                  overflow: "hidden",
-                  textOverflow: "ellipsis",
-                  whiteSpace: "nowrap",
-                }}
-              >
+            <div className="min-w-0">
+              <p className="m-0 text-[0.85rem] font-semibold text-moz-black overflow-hidden text-ellipsis whitespace-nowrap">
                 {file ? file.name : "Click to choose a PDF or image"}
               </p>
-              <p
-                style={{
-                  margin: 0,
-                  fontSize: "0.7rem",
-                  color: "var(--color-moz-gray-mid)",
-                }}
-              >
+              <p className="m-0 text-[0.7rem] text-moz-gray-mid">
                 PDF, PNG or JPG
               </p>
             </div>
@@ -247,22 +149,16 @@ function TemplateUploadPage() {
               type="file"
               accept="application/pdf,image/*"
               onChange={handleFileChange}
-              style={{ display: "none" }}
+              className="hidden"
             />
           </label>
         </div>
 
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(2, 1fr)",
-            gap: "1rem",
-          }}
-        >
+        {/* Required fields grid */}
+        <div className="grid grid-cols-2 gap-4">
           <div>
             <label htmlFor="font-size-input" className="form-label">
-              Font Size{" "}
-              <span style={{ color: "var(--color-moz-orange)" }}>*</span>
+              Font Size <span className="text-moz-orange">*</span>
             </label>
             <input
               id="font-size-input"
@@ -275,10 +171,9 @@ function TemplateUploadPage() {
 
           <div>
             <label htmlFor="font-color-input" className="form-label">
-              Font Color{" "}
-              <span style={{ color: "var(--color-moz-orange)" }}>*</span>
+              Font Color <span className="text-moz-orange">*</span>
             </label>
-            <div style={{ display: "flex", gap: "0.5rem" }}>
+            <div className="flex gap-2">
               <input
                 id="font-color-picker"
                 type="color"
@@ -298,8 +193,7 @@ function TemplateUploadPage() {
 
           <div>
             <label htmlFor="name-x-pos-input" className="form-label">
-              Name X Position{" "}
-              <span style={{ color: "var(--color-moz-orange)" }}>*</span>
+              Name X Position <span className="text-moz-orange">*</span>
             </label>
             <input
               id="name-x-pos-input"
@@ -312,8 +206,7 @@ function TemplateUploadPage() {
 
           <div>
             <label htmlFor="name-y-pos-input" className="form-label">
-              Name Y Position{" "}
-              <span style={{ color: "var(--color-moz-orange)" }}>*</span>
+              Name Y Position <span className="text-moz-orange">*</span>
             </label>
             <input
               id="name-y-pos-input"
@@ -325,30 +218,11 @@ function TemplateUploadPage() {
           </div>
         </div>
 
+        {/* Optional metadata */}
         <div>
-          <p
-            style={{
-              margin: "0 0 0.9rem",
-              fontSize: "0.7rem",
-              fontWeight: 700,
-              color: "var(--color-moz-gray-mid)",
-              letterSpacing: "0.05em",
-              textTransform: "uppercase",
-              borderTop: "1px solid var(--color-moz-gray-light)",
-              paddingTop: "1.25rem",
-            }}
-          >
-            Optional Metadata
-          </p>
+          <p className="form-section-title">Optional Metadata</p>
 
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(2, 1fr)",
-              gap: "1rem",
-              marginBottom: "1rem",
-            }}
-          >
+          <div className="grid grid-cols-2 gap-4 mb-4">
             <div>
               <label htmlFor="template-name-input" className="form-label">
                 Template Name
@@ -416,29 +290,24 @@ function TemplateUploadPage() {
           </div>
         </div>
 
+        {/* Submit */}
         <button
           id="submit-template-button"
           type="submit"
           disabled={submitting}
-          className="submit-btn"
-          style={{
-            padding: "0.7rem",
-            borderRadius: "0.5rem",
-            border: "none",
-            background: submitting
-              ? "var(--color-moz-gray-light)"
-              : "linear-gradient(135deg, var(--color-moz-orange) 0%, var(--color-moz-orange-mid) 100%)",
-            color: submitting ? "var(--color-moz-gray)" : "#fff",
-            fontSize: "0.9rem",
-            fontWeight: 700,
-            cursor: submitting ? "not-allowed" : "pointer",
-            fontFamily: "inherit",
-            letterSpacing: "0.02em",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            gap: "0.5rem",
-          }}
+          className={`submit-btn rounded-lg border-none text-[0.9rem] font-bold cursor-pointer font-sans tracking-[0.02em] flex items-center justify-center gap-2 py-[0.7rem] transition-[transform,opacity] duration-150 ${
+            submitting
+              ? "bg-moz-gray-light text-moz-gray cursor-not-allowed"
+              : "text-white"
+          }`}
+          style={
+            !submitting
+              ? {
+                  background:
+                    "linear-gradient(135deg, var(--color-moz-orange) 0%, var(--color-moz-orange-mid) 100%)",
+                }
+              : undefined
+          }
         >
           {submitting ? (
             <>
@@ -449,72 +318,6 @@ function TemplateUploadPage() {
           )}
         </button>
       </form>
-
-      <style>{`
-        .form-label {
-          display: block;
-          font-size: 0.7rem;
-          font-weight: 700;
-          color: var(--color-moz-gray-dark);
-          text-align: left;
-          margin-bottom: 0.4rem;
-          letter-spacing: 0.05em;
-          text-transform: uppercase;
-        }
-        .form-input {
-          width: 100%;
-          padding: 0.55rem 0.75rem;
-          border-radius: 0.4rem;
-          border: 1px solid #d4d4d4;
-          background: #f7f7fa;
-          color: var(--color-moz-black);
-          font-size: 0.85rem;
-          outline: none;
-          box-sizing: border-box;
-          transition: border-color 0.15s ease;
-          font-family: inherit;
-        }
-        .form-input:focus {
-          border-color: var(--color-moz-orange);
-        }
-        .textarea-input {
-          resize: vertical;
-        }
-        .color-picker {
-          width: 2.6rem;
-          height: 2.3rem;
-          padding: 0.2rem;
-          border-radius: 0.4rem;
-          border: 1px solid #d4d4d4;
-          background: #f7f7fa;
-          cursor: pointer;
-          box-sizing: border-box;
-        }
-        .color-hex {
-          flex: 1;
-          height: 2.3rem;
-        }
-        .dropzone {
-          display: flex;
-          align-items: center;
-          gap: 0.75rem;
-          padding: 1rem;
-          border-radius: 0.6rem;
-          border: 1px dashed #d4d4d4;
-          background: #f7f7fa;
-          cursor: pointer;
-          transition: border-color 0.15s ease;
-        }
-        .dropzone:hover {
-          border-color: var(--color-moz-orange);
-        }
-        .submit-btn {
-          transition: transform 0.15s ease;
-        }
-        .submit-btn:hover:not(:disabled) {
-          transform: translateY(-1px);
-        }
-      `}</style>
     </div>
   );
 }

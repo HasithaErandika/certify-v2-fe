@@ -78,12 +78,7 @@ export function FoxAnimations() {
   return (
     <>
       <div
-        style={{
-          position: "fixed",
-          zIndex: 999999,
-          pointerEvents: "none",
-        }}
-        className={containerClass}
+        className={`fixed z-[999999] pointer-events-none ${containerClass}`}
       >
         <img src={src} alt="Animated Fox" className={flip ? "fox-flip" : ""} />
       </div>

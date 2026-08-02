@@ -34,51 +34,17 @@ const EMPTY_FORM: FormData = {
   notes: "",
 };
 
-const inputStyle: React.CSSProperties = {
-  width: "100%",
-  padding: "0.625rem 0.875rem",
-  borderRadius: "0.5rem",
-  border: "1.5px solid var(--color-moz-gray-light)",
-  background: "#f7f7fa",
-  color: "var(--color-moz-black)",
-  fontSize: "0.875rem",
-  outline: "none",
-  boxSizing: "border-box",
-  fontFamily: "inherit",
-  transition: "border-color 0.2s ease, box-shadow 0.2s ease",
-};
-
-const focusHandlers = {
-  onFocus: (e: React.FocusEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
-    e.currentTarget.style.borderColor = "var(--color-moz-orange)";
-    e.currentTarget.style.boxShadow = "0 0 0 3px rgba(255,113,57,0.12)";
-    e.currentTarget.style.background = "#ffffff";
-  },
-  onBlur: (e: React.FocusEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
-    e.currentTarget.style.borderColor = "var(--color-moz-gray-light)";
-    e.currentTarget.style.boxShadow = "none";
-    e.currentTarget.style.background = "#f7f7fa";
-  },
-};
-
 function Field({
   label,
   required,
   children,
 }: Readonly<{ label: string; required?: boolean; children: React.ReactNode }>) {
   return (
-    <div style={{ display: "flex", flexDirection: "column", gap: "0.375rem" }}>
-      <label
-        style={{
-          fontSize: "0.78rem",
-          fontWeight: 600,
-          color: "var(--color-moz-gray-dark)",
-          letterSpacing: "0.03em",
-        }}
-      >
+    <div className="flex flex-col gap-[0.375rem]">
+      <label className="form-label">
         {label}
         {required && (
-          <span style={{ color: "var(--color-moz-orange)", marginLeft: "0.2rem" }}>*</span>
+          <span className="text-moz-orange ml-[0.2rem]">*</span>
         )}
       </label>
       {children}
@@ -110,7 +76,7 @@ export default function IssueCertificatePage() {
         const list = Array.isArray(data) ? data : (data as { data: Template[] }).data ?? [];
         setTemplates(list);
       } catch {
-        setTemplatesError("Could not load templates — enter template ID manually.");
+        setTemplatesError("Could not load templates - enter template ID manually.");
       } finally {
         setTemplatesLoading(false);
       }
@@ -180,102 +146,50 @@ export default function IssueCertificatePage() {
     }
   };
 
+  /* ── Success screen ── */
   if (issuedId) {
     return (
       <div
-        style={{
-          minHeight: "calc(100vh - 140px)",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          padding: "2rem 1.5rem",
-          backgroundColor: "#f7f7fa",
-        }}
+        className="flex items-center justify-center bg-[#f7f7fa] px-6 py-8"
+        style={{ minHeight: "calc(100vh - 140px)" }}
       >
         <div
-          style={{
-            background: "#ffffff",
-            border: "1px solid var(--color-moz-gray-light)",
-            borderRadius: "1.25rem",
-            padding: "2.5rem 2rem",
-            maxWidth: "30rem",
-            width: "100%",
-            textAlign: "center",
-            boxShadow: "0 4px 6px rgba(0,0,0,0.04), 0 12px 40px rgba(89,42,203,0.06)",
-          }}
+          className="bg-white border border-moz-gray-light rounded-[1.25rem] p-10 max-w-[30rem] w-full text-center"
+          style={{ boxShadow: "0 4px 6px rgba(0,0,0,0.04), 0 12px 40px rgba(89,42,203,0.06)" }}
         >
           {/* Checkmark */}
           <div
-            style={{
-              width: "3.5rem",
-              height: "3.5rem",
-              borderRadius: "50%",
-              background: "rgba(255,113,57,0.1)",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              margin: "0 auto 1.25rem",
-              fontSize: "1.5rem",
-            }}
+            className="w-14 h-14 rounded-full flex items-center justify-center mx-auto mb-5 text-2xl"
+            style={{ background: "rgba(255,113,57,0.1)" }}
           >
             ✓
           </div>
 
-          <h2
-            style={{
-              margin: "0 0 0.5rem",
-              fontSize: "1.25rem",
-              fontWeight: 700,
-              color: "var(--color-moz-black)",
-            }}
-          >
+          <h2 className="m-0 mb-2 text-xl font-bold text-moz-black">
             Certificate Issued!
           </h2>
-          <p style={{ color: "var(--color-moz-gray-mid)", fontSize: "0.875rem", margin: "0 0 1.5rem" }}>
+          <p className="text-moz-gray-mid text-sm mb-6">
             The certificate has been created successfully.
           </p>
 
           {/* ID chip */}
-          <div
-            style={{
-              background: "#f7f7fa",
-              border: "1px solid var(--color-moz-gray-light)",
-              borderRadius: "0.5rem",
-              padding: "0.75rem 1rem",
-              marginBottom: "1.5rem",
-            }}
-          >
-            <p style={{ margin: 0, fontSize: "0.72rem", color: "var(--color-moz-gray-mid)", fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.06em" }}>
+          <div className="bg-[#f7f7fa] border border-moz-gray-light rounded-lg py-3 px-4 mb-6">
+            <p className="m-0 text-[0.72rem] text-moz-gray-mid font-semibold uppercase tracking-[0.06em]">
               Certificate ID
             </p>
-            <p
-              style={{
-                margin: "0.25rem 0 0",
-                fontFamily: "monospace",
-                fontSize: "1rem",
-                fontWeight: 700,
-                color: "var(--color-moz-black)",
-                wordBreak: "break-all",
-              }}
-            >
+            <p className="mt-1 font-mono text-base font-bold text-moz-black break-all">
               {issuedId}
             </p>
           </div>
 
           {/* Actions */}
-          <div style={{ display: "flex", gap: "0.75rem", flexDirection: "column" }}>
+          <div className="flex gap-3 flex-col">
             <Link
               id="view-certificate-link"
               to={`/certificates/${encodeURIComponent(issuedId)}`}
+              className="block py-3 rounded-xl text-white font-bold no-underline text-[0.9rem]"
               style={{
-                display: "block",
-                padding: "0.75rem",
-                borderRadius: "0.75rem",
                 background: "linear-gradient(135deg, var(--color-moz-orange) 0%, var(--color-moz-orange-mid) 100%)",
-                color: "#fff",
-                fontWeight: 700,
-                textDecoration: "none",
-                fontSize: "0.9rem",
                 boxShadow: "0 4px 14px rgba(255,113,57,0.3)",
               }}
             >
@@ -284,17 +198,7 @@ export default function IssueCertificatePage() {
             <button
               id="issue-another-button"
               onClick={() => setIssuedId(null)}
-              style={{
-                padding: "0.75rem",
-                borderRadius: "0.75rem",
-                border: "1.5px solid var(--color-moz-gray-light)",
-                background: "transparent",
-                color: "var(--color-moz-gray-mid)",
-                fontWeight: 600,
-                cursor: "pointer",
-                fontSize: "0.9rem",
-                fontFamily: "inherit",
-              }}
+              className="py-3 rounded-xl border-[1.5px] border-moz-gray-light bg-transparent text-moz-gray-mid font-semibold cursor-pointer text-[0.9rem] font-sans"
             >
               Issue Another
             </button>
@@ -304,31 +208,23 @@ export default function IssueCertificatePage() {
     );
   }
 
+  const isDisabled = submitting || !form.template_id || !form.recipient_name || !form.recipient_email;
+
   return (
     <div
-      className="scrollbar-hidden"
-      style={{
-        height: "calc(100vh - 140px)",
-        overflowY: "auto",
-        padding: "2rem 1.5rem",
-        backgroundColor: "#f7f7fa",
-      }}
+      className="scrollbar-hidden overflow-y-auto bg-[#f7f7fa] px-6 py-8"
+      style={{ height: "calc(100vh - 140px)" }}
     >
-      <div style={{ maxWidth: "48rem", margin: "0 auto" }}>
+      <div className="max-w-3xl mx-auto">
         {/* Page header */}
-        <div style={{ marginBottom: "1.75rem" }}>
+        <div className="mb-7">
           <h1
-            style={{
-              margin: 0,
-              fontSize: "clamp(1.3rem, 3vw, 1.75rem)",
-              fontWeight: 800,
-              color: "var(--color-moz-black)",
-              letterSpacing: "-0.02em",
-            }}
+            className="m-0 font-extrabold text-moz-black tracking-[-0.02em]"
+            style={{ fontSize: "clamp(1.3rem, 3vw, 1.75rem)" }}
           >
             Issue Certificate
           </h1>
-          <p style={{ margin: "0.375rem 0 0", fontSize: "0.875rem", color: "var(--color-moz-gray-mid)" }}>
+          <p className="mt-[0.375rem] text-sm text-moz-gray-mid">
             Fill in the details below to issue a new certificate to a recipient.
           </p>
         </div>
@@ -337,32 +233,15 @@ export default function IssueCertificatePage() {
           id="issue-certificate-form"
           onSubmit={handleSubmit}
           noValidate
-          style={{ display: "flex", flexDirection: "column", gap: "1.5rem" }}
+          className="flex flex-col gap-6"
         >
           {/* Section: Template */}
-          <section
-            style={{
-              background: "#ffffff",
-              border: "1px solid var(--color-moz-gray-light)",
-              borderRadius: "1rem",
-              padding: "1.5rem",
-              boxShadow: "0 2px 8px rgba(0,0,0,0.04)",
-            }}
-          >
-            <h2 style={{ margin: "0 0 1rem", fontSize: "0.875rem", fontWeight: 700, color: "var(--color-moz-black)", textTransform: "uppercase", letterSpacing: "0.06em" }}>
-              Template
-            </h2>
+          <section className="bg-white border border-moz-gray-light rounded-2xl p-6 shadow-[0_2px_8px_rgba(0,0,0,0.04)]">
+            <h2 className="m-0 mb-4 text-sm font-bold text-moz-black uppercase tracking-[0.06em]">Template</h2>
 
             <Field label="Template" required>
               {templatesLoading ? (
-                <div
-                  style={{
-                    ...inputStyle,
-                    color: "var(--color-moz-gray-mid)",
-                    display: "flex",
-                    alignItems: "center",
-                  }}
-                >
+                <div className="input-base text-moz-gray-mid flex items-center">
                   Loading templates…
                 </div>
               ) : templates.length > 0 ? (
@@ -371,8 +250,7 @@ export default function IssueCertificatePage() {
                   required
                   value={form.template_id}
                   onChange={set("template_id")}
-                  style={{ ...inputStyle, appearance: "none", cursor: "pointer" }}
-                  {...focusHandlers}
+                  className="input-base appearance-none cursor-pointer"
                 >
                   <option value="">Select a template…</option>
                   {templates.map((t) => (
@@ -385,7 +263,7 @@ export default function IssueCertificatePage() {
               ) : (
                 <>
                   {templatesError && (
-                    <p style={{ margin: "0 0 0.5rem", fontSize: "0.78rem", color: "#c0392b" }}>
+                    <p className="m-0 mb-2 text-[0.78rem] text-[#c0392b]">
                       ⚠ {templatesError}
                     </p>
                   )}
@@ -397,8 +275,7 @@ export default function IssueCertificatePage() {
                     placeholder="Enter template ID"
                     value={form.template_id}
                     onChange={set("template_id")}
-                    style={inputStyle}
-                    {...focusHandlers}
+                    className="input-base"
                   />
                 </>
               )}
@@ -406,19 +283,9 @@ export default function IssueCertificatePage() {
           </section>
 
           {/* Section: Recipient */}
-          <section
-            style={{
-              background: "#ffffff",
-              border: "1px solid var(--color-moz-gray-light)",
-              borderRadius: "1rem",
-              padding: "1.5rem",
-              boxShadow: "0 2px 8px rgba(0,0,0,0.04)",
-            }}
-          >
-            <h2 style={{ margin: "0 0 1rem", fontSize: "0.875rem", fontWeight: 700, color: "var(--color-moz-black)", textTransform: "uppercase", letterSpacing: "0.06em" }}>
-              Recipient
-            </h2>
-            <div style={{ display: "grid", gap: "1rem", gridTemplateColumns: "repeat(auto-fit, minmax(14rem, 1fr))" }}>
+          <section className="bg-white border border-moz-gray-light rounded-2xl p-6 shadow-[0_2px_8px_rgba(0,0,0,0.04)]">
+            <h2 className="m-0 mb-4 text-sm font-bold text-moz-black uppercase tracking-[0.06em]">Recipient</h2>
+            <div className="grid gap-4 grid-cols-[repeat(auto-fit,minmax(14rem,1fr))]">
               <Field label="Full Name" required>
                 <input
                   id="recipient-name-input"
@@ -427,8 +294,7 @@ export default function IssueCertificatePage() {
                   placeholder="John Doe"
                   value={form.recipient_name}
                   onChange={set("recipient_name")}
-                  style={inputStyle}
-                  {...focusHandlers}
+                  className="input-base"
                 />
               </Field>
               <Field label="Email" required>
@@ -439,30 +305,19 @@ export default function IssueCertificatePage() {
                   placeholder="john@example.com"
                   value={form.recipient_email}
                   onChange={set("recipient_email")}
-                  style={inputStyle}
-                  {...focusHandlers}
+                  className="input-base"
                 />
               </Field>
             </div>
           </section>
 
           {/* Section: Event Details */}
-          <section
-            style={{
-              background: "#ffffff",
-              border: "1px solid var(--color-moz-gray-light)",
-              borderRadius: "1rem",
-              padding: "1.5rem",
-              boxShadow: "0 2px 8px rgba(0,0,0,0.04)",
-            }}
-          >
-            <h2 style={{ margin: "0 0 0.25rem", fontSize: "0.875rem", fontWeight: 700, color: "var(--color-moz-black)", textTransform: "uppercase", letterSpacing: "0.06em" }}>
-              Event Details
-            </h2>
-            <p style={{ margin: "0 0 1rem", fontSize: "0.78rem", color: "var(--color-moz-gray-mid)" }}>
+          <section className="bg-white border border-moz-gray-light rounded-2xl p-6 shadow-[0_2px_8px_rgba(0,0,0,0.04)]">
+            <h2 className="m-0 mb-1 text-sm font-bold text-moz-black uppercase tracking-[0.06em]">Event Details</h2>
+            <p className="mb-4 text-[0.78rem] text-moz-gray-mid">
               All fields in this section are optional.
             </p>
-            <div style={{ display: "grid", gap: "1rem", gridTemplateColumns: "repeat(auto-fit, minmax(14rem, 1fr))" }}>
+            <div className="grid gap-4 grid-cols-[repeat(auto-fit,minmax(14rem,1fr))]">
               <Field label="Issue Reason">
                 <input
                   id="issue-reason-input"
@@ -470,8 +325,7 @@ export default function IssueCertificatePage() {
                   placeholder="e.g. participation"
                   value={form.issue_reason}
                   onChange={set("issue_reason")}
-                  style={inputStyle}
-                  {...focusHandlers}
+                  className="input-base"
                 />
               </Field>
               <Field label="Event Name">
@@ -481,8 +335,7 @@ export default function IssueCertificatePage() {
                   placeholder="e.g. AI Workshop 2026"
                   value={form.event_name}
                   onChange={set("event_name")}
-                  style={inputStyle}
-                  {...focusHandlers}
+                  className="input-base"
                 />
               </Field>
               <Field label="Event Date">
@@ -491,8 +344,7 @@ export default function IssueCertificatePage() {
                   type="date"
                   value={form.event_date}
                   onChange={set("event_date")}
-                  style={inputStyle}
-                  {...focusHandlers}
+                  className="input-base"
                 />
               </Field>
               <Field label="Event Location">
@@ -502,8 +354,7 @@ export default function IssueCertificatePage() {
                   placeholder="e.g. Colombo"
                   value={form.event_location}
                   onChange={set("event_location")}
-                  style={inputStyle}
-                  {...focusHandlers}
+                  className="input-base"
                 />
               </Field>
               <Field label="Issuer Name">
@@ -513,8 +364,7 @@ export default function IssueCertificatePage() {
                   placeholder="e.g. SLIIT Mozilla Club"
                   value={form.issuer_name}
                   onChange={set("issuer_name")}
-                  style={inputStyle}
-                  {...focusHandlers}
+                  className="input-base"
                 />
               </Field>
               <Field label="Course Name">
@@ -524,13 +374,12 @@ export default function IssueCertificatePage() {
                   placeholder="e.g. Prompt Engineering"
                   value={form.course_name}
                   onChange={set("course_name")}
-                  style={inputStyle}
-                  {...focusHandlers}
+                  className="input-base"
                 />
               </Field>
             </div>
 
-            <div style={{ marginTop: "1rem" }}>
+            <div className="mt-4">
               <Field label="Notes">
                 <textarea
                   id="notes-input"
@@ -538,67 +387,40 @@ export default function IssueCertificatePage() {
                   rows={3}
                   value={form.notes}
                   onChange={set("notes")}
-                  style={{
-                    ...inputStyle,
-                    resize: "vertical",
-                    minHeight: "5rem",
-                  }}
-                  {...focusHandlers}
+                  className="input-base textarea-input min-h-[5rem]"
                 />
               </Field>
             </div>
           </section>
 
+          {/* Submit error */}
           {submitError && (
-            <div
-              style={{
-                padding: "0.875rem 1rem",
-                borderRadius: "0.75rem",
-                background: "#fdf0ef",
-                border: "1px solid #f5c6c2",
-                color: "#c0392b",
-                fontSize: "0.875rem",
-                display: "flex",
-                gap: "0.5rem",
-                alignItems: "flex-start",
-              }}
-            >
+            <div className="form-banner form-banner-error">
               <span>⚠</span>
               <span>{submitError}</span>
             </div>
           )}
 
           {/* Submit */}
-          <div style={{ display: "flex", justifyContent: "flex-end", paddingBottom: "2rem" }}>
+          <div className="flex justify-end pb-8">
             <button
               id="submit-certificate-button"
               type="submit"
-              disabled={submitting || !form.template_id || !form.recipient_name || !form.recipient_email}
-              style={{
-                padding: "0.75rem 2rem",
-                borderRadius: "0.75rem",
-                border: "none",
-                background:
-                  submitting || !form.template_id || !form.recipient_name || !form.recipient_email
-                    ? "var(--color-moz-gray-light)"
-                    : "linear-gradient(135deg, var(--color-moz-orange) 0%, var(--color-moz-orange-mid) 100%)",
-                color:
-                  submitting || !form.template_id || !form.recipient_name || !form.recipient_email
-                    ? "var(--color-moz-gray)"
-                    : "#fff",
-                fontSize: "0.95rem",
-                fontWeight: 700,
-                cursor:
-                  submitting || !form.template_id || !form.recipient_name || !form.recipient_email
-                    ? "not-allowed"
-                    : "pointer",
-                fontFamily: "inherit",
-                transition: "all 0.2s ease",
-                boxShadow:
-                  submitting || !form.template_id || !form.recipient_name || !form.recipient_email
-                    ? "none"
-                    : "0 4px 14px rgba(255,113,57,0.35)",
-              }}
+              disabled={isDisabled}
+              className={`py-3 px-8 rounded-xl border-none text-[0.95rem] font-bold font-sans transition-all duration-200 ${
+                isDisabled
+                  ? "bg-moz-gray-light text-moz-gray cursor-not-allowed"
+                  : "text-white cursor-pointer"
+              }`}
+              style={
+                !isDisabled
+                  ? {
+                      background:
+                        "linear-gradient(135deg, var(--color-moz-orange) 0%, var(--color-moz-orange-mid) 100%)",
+                      boxShadow: "0 4px 14px rgba(255,113,57,0.35)",
+                    }
+                  : undefined
+              }
             >
               {submitting ? "Issuing…" : "Issue Certificate →"}
             </button>
