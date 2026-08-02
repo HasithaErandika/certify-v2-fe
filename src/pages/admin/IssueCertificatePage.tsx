@@ -131,9 +131,10 @@ export default function IssueCertificatePage() {
         throw new Error(err.message ?? `Server error ${res.status}`);
       }
 
-      const result = await res.json() as { certificate_id?: string; data?: { certificate_id?: string } };
+      const result = await res.json();
       const certId =
-        result.certificate_id ?? result.data?.certificate_id ?? null;
+        result.certificate.certificate_id ?? result.data?.certificate_id ?? null;
+
 
       if (!certId) throw new Error("No certificate ID returned by the server.");
 
@@ -399,8 +400,8 @@ export default function IssueCertificatePage() {
               type="submit"
               disabled={isDisabled}
               className={`py-3 px-8 rounded-xl border-none text-[0.95rem] font-bold font-sans transition-all duration-200 ${isDisabled
-                  ? "bg-moz-gray-light text-moz-gray cursor-not-allowed"
-                  : "text-white cursor-pointer bg-gradient-to-br from-[var(--color-moz-orange)] to-[var(--color-moz-orange-mid)] shadow-[0_4px_14px_rgba(255,113,57,0.35)]"
+                ? "bg-moz-gray-light text-moz-gray cursor-not-allowed"
+                : "text-white cursor-pointer bg-gradient-to-br from-[var(--color-moz-orange)] to-[var(--color-moz-orange-mid)] shadow-[0_4px_14px_rgba(255,113,57,0.35)]"
                 }`}
             >
               {submitting ? "Issuing…" : "Issue Certificate →"}

@@ -95,18 +95,17 @@ function PreviewPage() {
             id="download-certificate-button"
             onClick={handleDownload}
             disabled={!certificateBlob}
-            className={`py-2 px-5 rounded-lg border-none text-[0.85rem] font-bold font-sans transition-all duration-200 ${
-              certificateBlob
+            className={`py-2 px-5 rounded-lg border-none text-[0.85rem] font-bold font-sans transition-all duration-200 ${certificateBlob
                 ? "text-white cursor-pointer"
                 : "text-moz-gray bg-moz-gray-light cursor-not-allowed"
-            }`}
+              }`}
             style={
               certificateBlob
                 ? {
-                    background:
-                      "linear-gradient(135deg, var(--color-moz-orange) 0%, var(--color-moz-orange-mid) 100%)",
-                    boxShadow: "0 2px 10px rgba(255,113,57,0.3)",
-                  }
+                  background:
+                    "linear-gradient(135deg, var(--color-moz-orange) 0%, var(--color-moz-orange-mid) 100%)",
+                  boxShadow: "0 2px 10px rgba(255,113,57,0.3)",
+                }
                 : undefined
             }
           >
